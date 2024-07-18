@@ -42,8 +42,7 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-toggle.elf \
-toggle.bin
+toggle.elf
 
 MAP_FILES += \
 toggle.map \
@@ -52,8 +51,7 @@ SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-toggle.list \
-toggle.bin
+toggle.list
 
 
 # All Target
@@ -74,13 +72,13 @@ toggle.bin: toggle.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
-default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-size  $(EXECUTABLES)
+default.size.stdout: toggle.elf makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-size toggle.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
-toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "toggle.list"
+toggle.list: toggle.elf makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S toggle.elf > "toggle.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
