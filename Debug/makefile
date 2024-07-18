@@ -85,6 +85,9 @@ toggle.bin: toggle.elf
 # Other Targets
 clean:
 	-$(DEL) default.size.stdout toggle.elf toggle.list toggle.map toggle.bin
+	-$(DEL) ./Core/Src/*.o ./Core/Src/*.d ./Core/Src/*.su
+	-$(DEL) ./Core/Startup/*.o ./Core/Startup/*.d ./Core/Startup/*.su
+	-$(DEL) ./Drivers/STM32F4xx_HAL_Driver/Src/*.o ./Drivers/STM32F4xx_HAL_Driver/Src/*.d ./Drivers/STM32F4xx_HAL_Driver/Src/*.su
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
