@@ -67,6 +67,12 @@ toggle.elf toggle.map: $(OBJS) $(USER_OBJS) C:\Users\AHMED\Desktop\toggle\STM32F
 	@echo 'Finished building target: $@'
 	@echo ' '
 
+
+toggle.bin: toggle.elf
+	arm-none-eabi-objcopy -O binary $< $@
+	@echo 'Finished building: $@'
+	@echo ' '
+
 default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-size  $(EXECUTABLES)
 	@echo 'Finished building: $@'
@@ -77,10 +83,6 @@ toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-toggle.bin: toggle.elf
-	arm-none-eabi-objcopy -O binary $< $@
-	@echo 'Finished building: $@'
-	@echo ' '
 
 # Other Targets
 clean:
