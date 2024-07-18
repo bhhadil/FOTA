@@ -5,7 +5,8 @@
 
 -include ../makefile.init
 
-DEL := del /Q
+# Pour Windows, utilisez 'del /Q' au lieu de 'rm -rf'
+RM_WINDOWS := del /Q
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -69,7 +70,7 @@ toggle.elf toggle.map: $(OBJS) $(USER_OBJS) C:\Users\AHMED\Desktop\toggle\STM32F
 
 
 toggle.bin: toggle.elf
-	arm-none-eabi-objcopy -O binary $< $@
+	arm-none-eabi-objcopy -O binary "toggle.elf" "toggle.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
@@ -86,7 +87,7 @@ toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(DEL) default.size.stdout toggle.elf toggle.list toggle.map toggle.bin
+	-$(RM_WINDOWS) default.size.stdout toggle.elf toggle.list toggle.map toggle.bin
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
