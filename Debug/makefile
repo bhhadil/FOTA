@@ -63,8 +63,7 @@ main-build: toggle.elf secondary-outputs
 
 # Tool invocations
 toggle.elf toggle.map: $(OBJS) $(USER_OBJS) C:\Users\AHMED\Desktop\toggle\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
-
+	arm-none-eabi-gcc -o "toggle.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\AHMED\Desktop\toggle\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="toggle.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -85,11 +84,8 @@ toggle.bin: toggle.elf
 
 # Other Targets
 clean:
-	del /Q .\Drivers\STM32F4xx_HAL_Driver\Src\*.cyclo .\Drivers\STM32F4xx_HAL_Driver\Src\*.d .\Drivers\STM32F4xx_HAL_Driver\Src\*.o .\Drivers\STM32F4xx_HAL_Driver\Src\*.su
-	del /Q .\Core\Startup\*.d .\Core\Startup\*.o .\Core\Startup\*.su
-	del /Q .\Core\Src\*.cyclo .\Core\Src\*.d .\Core\Src\*.o .\Core\Src\*.su
-	del /Q .\Core\Src\main.cyclo .\Core\Src\main.d .\Core\Src\main.o .\Core\Src\main.su .\Core\Src\stm32f4xx_hal_msp.cyclo .\Core\Src\stm32f4xx_hal_msp.d .\Core\Src\stm32f4xx_hal_msp.o .\Core\Src\stm32f4xx_hal_msp.su .\Core\Src\stm32f4xx_it.cyclo .\Core\Src\stm32f4xx_it.d .\Core\Src\stm32f4xx_it.o .\Core\Src\stm32f4xx_it.su .\Core\Src\syscalls.cyclo .\Core\Src\syscalls.d .\Core\Src\syscalls.o .\Core\Src\syscalls.su .\Core\Src\sysmem.cyclo .\Core\Src\sysmem.d .\Core\Src\sysmem.o .\Core\Src\sysmem.su .\Core\Src\system_stm32f4xx.cyclo .\Core\Src\system_stm32f4xx.d .\Core\Src\system_stm32f4xx.o .\Core\Src\system_stm32f4xx.su
-	del /Q toggle.elf toggle.list toggle.map toggle.bin
+	-$(DEL) default.size.stdout toggle.elf toggle.list toggle.map toggle.bin
+	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
