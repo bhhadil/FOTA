@@ -84,11 +84,11 @@ toggle.bin: toggle.elf
 
 # Other Targets
 clean:
-	-$(DEL) default.size.stdout toggle.elf toggle.list toggle.map toggle.bin
-	-$(DEL) ./Core/Src/*.o ./Core/Src/*.d ./Core/Src/*.su
-	-$(DEL) ./Core/Startup/*.o ./Core/Startup/*.d ./Core/Startup/*.su
-	-$(DEL) ./Drivers/STM32F4xx_HAL_Driver/Src/*.o ./Drivers/STM32F4xx_HAL_Driver/Src/*.d ./Drivers/STM32F4xx_HAL_Driver/Src/*.su
-	-@echo ' '
+	del /Q .\Drivers\STM32F4xx_HAL_Driver\Src\*.cyclo .\Drivers\STM32F4xx_HAL_Driver\Src\*.d .\Drivers\STM32F4xx_HAL_Driver\Src\*.o .\Drivers\STM32F4xx_HAL_Driver\Src\*.su
+	del /Q .\Core\Startup\*.d .\Core\Startup\*.o .\Core\Startup\*.su
+	del /Q .\Core\Src\*.cyclo .\Core\Src\*.d .\Core\Src\*.o .\Core\Src\*.su
+	del /Q .\Core\Src\main.cyclo .\Core\Src\main.d .\Core\Src\main.o .\Core\Src\main.su .\Core\Src\stm32f4xx_hal_msp.cyclo .\Core\Src\stm32f4xx_hal_msp.d .\Core\Src\stm32f4xx_hal_msp.o .\Core\Src\stm32f4xx_hal_msp.su .\Core\Src\stm32f4xx_it.cyclo .\Core\Src\stm32f4xx_it.d .\Core\Src\stm32f4xx_it.o .\Core\Src\stm32f4xx_it.su .\Core\Src\syscalls.cyclo .\Core\Src\syscalls.d .\Core\Src\syscalls.o .\Core\Src\syscalls.su .\Core\Src\sysmem.cyclo .\Core\Src\sysmem.d .\Core\Src\sysmem.o .\Core\Src\sysmem.su .\Core\Src\system_stm32f4xx.cyclo .\Core\Src\system_stm32f4xx.d .\Core\Src\system_stm32f4xx.o .\Core\Src\system_stm32f4xx.su
+	del /Q toggle.elf toggle.list toggle.map toggle.bin
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
